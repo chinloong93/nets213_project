@@ -5,9 +5,17 @@ from pymongo import MongoClient
  
 app = Flask(__name__)
 
+#MongoDB client
+client = MongoClient("mongodb://heroku_d7ctc0xz:heroku_d7ctc0xz@ds039000.mlab.com:39000/heroku_d7ctc0xz")
+db = client.get_default_database()
+
 @app.route("/", methods=['GET', 'POST'])
 def respond():
     from_number = request.values.get('From', None)
+    
+    
+    db.users.insert({from_number:'test'})
+
     resp = twilio.twiml.Response()
     resp.message('hello '+from_number)
     return str(resp)
