@@ -12,9 +12,9 @@ db = client.get_default_database()
 @app.route("/", methods=['GET', 'POST'])
 def respond():
     from_number = request.values.get('From', None)
+    name = request.values.get('Body', None)
 
-
-    db.users.insert({from_number:'test'})
+    db.users.insert({from_number:name})
 
     resp = twilio.twiml.Response()
     resp.message('hello '+from_number)
