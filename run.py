@@ -6,7 +6,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 #MongoDB client
-client = MongoClient("mongodb://admin:password@ds039000.mlab.com:39000/heroku_d7ctc0xz")
+client = MongoClient("yoursecret")
 db = client.get_default_database()
 
 @app.route("/", methods=['GET', 'POST'])
