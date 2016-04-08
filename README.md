@@ -16,4 +16,4 @@
 
 ## Milestone 4: Response to user
 * Pull data from database
-* Notify user of top n results
+* Notify users of top n results
