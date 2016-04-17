@@ -7,7 +7,7 @@ db = client.get_default_database()
 
 # Checks whether the user exists in the database
 def user_exists(number):
-    cursor = db.users.find({"user": {"number":number} })
+    cursor = db.users.find({ "user.number": number })
     if cursor.count() > 0:
         return True
     else:
