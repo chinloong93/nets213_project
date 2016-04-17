@@ -1,12 +1,11 @@
 import praw
+from ..credentials import app_secret, app_refresh
 
 app_id = 'RcDWOGZcajoyHg'
-app_secret = 'yoursecret'
 app_uri = 'https://127.0.0.1:65010/authorize_callback'
 app_ua = 'description of the text'
 app_scopes = 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modothers modposts modself modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread'
 app_account_code = 'sl5YGDVzOPkolZ7vMi7HB26F0B8'
-app_refresh = 'yoursecret'
 
 def login():
     r = praw.Reddit(app_ua)
