@@ -30,8 +30,9 @@ def deactivate(number):
 
 # Checks whether the user has an active post
 def user_active(number):
-    cursor = db.users.find( { "user": { "number":number, "active": "" } })
-    if cursor.count() > 0:
-        return False
-    else:
-        return True
+    cursor = db.users.find( { "user.number": number } )
+    for elt in cursor:
+        if elt['user']['active'] == '':
+            return False
+        else:
+            return True
