@@ -56,7 +56,7 @@ def handle_request(post_id):
     else:
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", body=comment)
-        #deactivate user
+        deactivate(number)
 
 if __name__ == "__main__":
     app.run(debug=True)
