@@ -24,7 +24,8 @@ def get_comments(r, post_id):
 def get_submission(r, post_id):
     return r.get_submission(url=None, submission_id=post_id, comment_limit=0, comment_sort=None, params=None)
 
-def get_most_upvoted_comment(r, post):
+def get_most_upvoted_comment(r, post_id):
+    post = get_submission(r, post_id)
     if len(post.comments) > 0:
         comment = post.comments[0]
         most_upvoted_string = str(comment) + '\t' +  str(comment.id) + '\t' + str(comment.score)
