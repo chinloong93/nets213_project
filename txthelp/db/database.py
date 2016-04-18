@@ -36,3 +36,17 @@ def user_active(number):
             return False
         else:
             return True
+
+def get_active_post(number):
+    cursor = db.users.find( { "user.number": number } )
+    for elt in cursor:
+        if elt['user']['active'] == '':
+            return None
+        else:
+            return elt['user']['active']
+
+# Checks whether the user has an active post
+def user_number(post_id):
+    cursor = db.users.find( { "user.active": post_id } )
+    for elt in cursor:
+        return elt['user']['number']

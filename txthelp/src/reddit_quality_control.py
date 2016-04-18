@@ -28,9 +28,9 @@ def get_most_upvoted_comment(r, post):
     if len(post.comments) > 0:
         comment = post.comments[0]
         most_upvoted_string = str(comment) + '\t' +  str(comment.id) + '\t' + str(comment.score)
-        return most_upvoted_string
+        return str(comment)
     else:
-        return 'no comments yet'
+        return None
 
 
 if __name__ == "__main__":
