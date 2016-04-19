@@ -12,7 +12,7 @@ from src.reddit_quality_control import *
 app = Flask(__name__)
 
 ACCOUNT_SID = "AC2211707adb4cde52955bca7cfa0db513" 
-AUTH_TOKEN = "5a94478226313be17001a52be80f8b33" 
+AUTH_TOKEN = "4231c1beb1058d77cda8cab30fe95895" 
  
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 
