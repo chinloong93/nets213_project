@@ -18,3 +18,7 @@ def login():
 def post_to_reddit(r, message):
     post = r.submit('txthotline', str(random.randint(0,10000000)), text=message)
     return post.id
+
+if __name__ == "__main__":
+    r = login()
+    post_to_reddit(r, "hello")

@@ -32,7 +32,7 @@ def respond():
                 # possibly add url to reddit
     	else:
             r = login()
-            post_id = post_to_reddit(r, message)
+            post_id = post_to_reddit(r, str(message))
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
             t = threading.Timer(10.0, handle_request, [post_id, 0])
