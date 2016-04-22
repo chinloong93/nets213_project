@@ -37,7 +37,7 @@ def respond():
             post_id = post_to_reddit(r, message)
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
-            t = threading.Timer(10.0, handle_request, [post_id, 0])
+            t = threading.Timer(10.0, handle_request, [post_id, str(0)])
             t.start()
 
 
@@ -49,11 +49,12 @@ def pageNotFound(error):
 
 def handle_request(post_id, time):
     r = login()
+    time = int(time)
     comment = get_most_upvoted_comment(r, post_id)
 
     if comment is None and time < 60:
         time += 10
-        t = threading.Timer(10.0, handle_request, [post_id, time])
+        t = threading.Timer(10.0, handle_request, [post_id, str(time)])
         t.start()
         return None
     elif comment is None and time >= 60:
