@@ -1,1 +1,1 @@
-web: gunicorn txthelp.run:app
+web: gunicorn --log-file=- txthelp.run:app
