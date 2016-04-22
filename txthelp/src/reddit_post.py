@@ -14,6 +14,7 @@ def login():
     r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
     r.refresh_access_information('11799219-ekf0ZjFmu29aCxh7WR8VsicOxXg')
     print 'successful login','\t',r
+    sys.stdout.flush()
     return r
 
 def post_to_reddit(r, message):

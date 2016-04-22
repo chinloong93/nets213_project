@@ -32,8 +32,10 @@ def respond():
                 resp.message("Hang tight. We are working on your response")
                 # possibly add url to reddit
     	else:
+            print ' we are trying to log you in'
             r = login()
             print 'success', '\t', r
+            sys.stdout.flush()
             post_id = post_to_reddit(r, message)
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
