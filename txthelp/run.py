@@ -35,7 +35,7 @@ def respond():
             post_id = post_to_reddit(r, message)
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
-            t = threading.Timer(10.0, handle_request, [post_id])
+            t = threading.Timer(10.0, handle_request, [post_id, 0])
             t.start()
 
 
@@ -45,17 +45,24 @@ def respond():
 def pageNotFound(error):
     return "page not found"
 
-def handle_request(post_id):
+def handle_request(post_id, time):
     r = login()
     comment = get_most_upvoted_comment(r, post_id)
 
-    if comment is None:
-        t = threading.Timer(10.0, handle_request, [post_id])
+    if comment is None and time < 60:
+        time += 10
+        t = threading.Timer(10.0, handle_request, [post_id, time])
         t.start()
         return None
+    elif comment is None and time >= 60:
+        number = user_number(post_id)
+        message = client.messages.create(to=number, from_="+12674600904", \
+            body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
+        deactivate(number)
     else:
         number = user_number(post_id)
-        message = client.messages.create(to=number, from_="+12674600904", body=comment)
+        response = comment[0] + "\nText again to submit a new message request"
+        message = client.messages.create(to=number, from_="+12674600904", body=response)
         deactivate(number)
 
 if __name__ == "__main__":

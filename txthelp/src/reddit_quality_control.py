@@ -1,5 +1,5 @@
 import praw
-from ..credentials import app_secret, app_refresh
+#from ..credentials import app_secret, app_refresh
 
 app_id = 'RcDWOGZcajoyHg'
 app_uri = 'https://127.0.0.1:65010/authorize_callback'
@@ -29,7 +29,7 @@ def get_most_upvoted_comment(r, post_id):
     if len(post.comments) > 0:
         comment = post.comments[0]
         most_upvoted_string = str(comment) + '\t' +  str(comment.id) + '\t' + str(comment.score)
-        return str(comment)
+        return [str(comment), str(comment.score)]
     else:
         return None
 
@@ -38,7 +38,8 @@ if __name__ == "__main__":
     r = login()
     top_posts = top_posts(r)
     for post in top_posts:
-        comment = get_most_upvoted_comment(r, post)
+        comment = get_most_upvoted_comment(r, post.id)
+        #print comment
         print comment
         # flat_comments = praw.helpers.flatten_tree(post.comments)
         # for comment in flat_comments:
