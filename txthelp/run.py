@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import threading
 import time
 from twilio.rest import TwilioRestClient
+import sys
 from src.reddit_post import *
 from db.database import *
 from src.reddit_quality_control import *
@@ -32,7 +33,8 @@ def respond():
                 # possibly add url to reddit
     	else:
             r = login()
-            post_id = post_to_reddit(r, "hello my friend")
+            print 'success', '\t', r
+            post_id = post_to_reddit(r, message)
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
             t = threading.Timer(10.0, handle_request, [post_id, 0])
