@@ -45,12 +45,11 @@ def respond():
                 title = message[:100] + "..."
             else:
                 title = message
-            '''##Oh I learned how to do this today!
-***
-Let's say you wanted to turn **my post** into the format you use. Well here is *how*:'''
+            
             
             message = message + '''
-            **Please help this person answer to this message. Write something useful and no swearing please**'''
+            
+            **[Please help this person answer to this message. Write something useful and no swearing please**]'''
             post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
