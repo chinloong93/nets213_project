@@ -46,7 +46,7 @@ def respond():
             else:
                 title = message
 
-            message = message + "<br><br><strong> Please help this person answer to this message. Write something useful and no swearing please<strong>"
+            message = "<p>" + message + "</p><p><strong> Please help this person answer to this message. Write something useful and no swearing please</strong></p>"
             post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
