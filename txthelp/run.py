@@ -14,6 +14,12 @@ app = Flask(__name__)
 
 ACCOUNT_SID = "AC2211707adb4cde52955bca7cfa0db513" 
 AUTH_TOKEN = "4231c1beb1058d77cda8cab30fe95895" 
+
+app_id = 'RcDWOGZcajoyHg'
+app_uri = 'https://help-text.herokuapp.com/authorize_callback'
+app_ua = 'try something new'
+app_scopes = 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modothers modposts modself modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread'
+app_account_code = 'reWp15hGNfrB6YG_NhDyfi8W4RA'
  
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 
@@ -70,6 +76,21 @@ def handle_request(post_id, time):
         response = comment[0] + "\nText again to submit a new message request"
         message = client.messages.create(to=number, from_="+12674600904", body=response)
         deactivate(number)
+
+def login():
+    print 'started login'
+    r = praw.Reddit(app_ua)
+    print 'got r'
+    r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
+    print 'set oauth app'
+    r.refresh_access_information('11799219-t3T0HETO75UoWwO3vNmNIYt7YPo')
+    print 'successful login','\t',r
+    sys.stdout.flush()
+    return r
+
+def post_to_reddit(r, message):
+    post = r.submit('txthotline', str(random.randint(0,10000000)), text=message)
+    return post.id
 
 if __name__ == "__main__":
     app.run(debug=True)
