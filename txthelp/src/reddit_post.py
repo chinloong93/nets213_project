@@ -7,12 +7,12 @@ app_id = 'RcDWOGZcajoyHg'
 app_uri = 'https://help-text.herokuapp.com/authorize_callback'
 app_ua = 'description of the text'
 app_scopes = 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modothers modposts modself modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread'
-app_account_code = 'sl5YGDVzOPkolZ7vMi7HB26F0B8'
+app_account_code = 'reWp15hGNfrB6YG_NhDyfi8W4RA'
 
 def login():
     r = praw.Reddit(app_ua)
     r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
-    r.refresh_access_information('11799219-ekf0ZjFmu29aCxh7WR8VsicOxXg')
+    r.refresh_access_information('11799219-t3T0HETO75UoWwO3vNmNIYt7YPo')
     print 'successful login','\t',r
     sys.stdout.flush()
     return r

@@ -35,13 +35,13 @@ def respond():
             print ' we are trying to log you in'
             reddit = login()
             print 'success', '\t', r
-            sys.stdout.flush()
             post_id = post_to_reddit(reddit, message)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
             t = threading.Timer(10.0, handle_request, [post_id, str(0)])
             t.start()
+            sys.stdout.flush()
 
 
     return str(resp)
