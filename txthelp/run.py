@@ -34,7 +34,7 @@ def respond():
     	else:
             print ' we are trying to log you in'
             reddit = login()
-            print 'success', '\t', r
+            print 'success', '\t', reddit
             post_id = post_to_reddit(reddit, message)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
