@@ -49,7 +49,7 @@ def respond():
             
             message = message + '''
             
-            **[Please help this person answer to this message. Write something useful and no swearing please**]'''
+            Please help this person answer to this message. Write something useful and no swearing please'''
             post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
