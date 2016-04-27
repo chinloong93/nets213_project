@@ -10,6 +10,7 @@ app_scopes = 'account creddits edit flair history identity livemanage modconfig 
 app_account_code = 'reWp15hGNfrB6YG_NhDyfi8W4RA'
 
 def login():
+    print 'started login'
     r = praw.Reddit(app_ua)
     print 'got r'
     r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
