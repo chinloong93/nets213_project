@@ -13,8 +13,8 @@ from src.grammar_control import *
  
 app = Flask(__name__)
 
-ACCOUNT_SID = "AC2211707adb4cde52955bca7cfa0db513" 
-AUTH_TOKEN = "4231c1beb1058d77cda8cab30fe95895" 
+ACCOUNT_SID = "secret" 
+AUTH_TOKEN = "secret" 
  
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 
