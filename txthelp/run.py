@@ -67,7 +67,7 @@ def handle_request(post_id, time):
         deactivate(number)
     else:
         number = user_number(post_id)
-        response = comment[0] + "\nText again to submit a new message request"
+        response = "Message Response: \n" +comment[0] + "\n \nText again to submit a new message request"
         message = client.messages.create(to=number, from_="+12674600904", body=response)
         deactivate(number)
 
