@@ -5,18 +5,18 @@
 * ~~Set up database to store phone number, request id etc.~~
 
 ## Milestone 2: Post to crowdsourcing platform (Aggregation Module) *4pts*
-* Parse request from user
-* Store request in database
-* Post request to Reddit
+* ~~Parse request from user~~
+* ~~Store request in database~~
+* ~~Post request to Reddit~~
 
 ## Milestone 3: Check highest quality response (QC Module) *4pts*
-* Allow time to gather response (30 minutes)
+* ~~Allow time to gather response (30 minutes)~~ *Used threads*
 * ~~Choose the top n upvoted response on reddit~~
 * Check for results with valid English grammar and store the results in a database
 
 ## Milestone 4: Response to user *4pts*
-* Pull data from database
-* Notify users of top n results
+* ~~Pull data from database~~
+* ~~Notify users of top n results~~
 
 ## Project updates:
 ### Quality Control Module:
