@@ -5,7 +5,7 @@ import sys
 
 app_id = 'RcDWOGZcajoyHg'
 app_uri = 'https://help-text.herokuapp.com/authorize_callback'
-app_ua = 'description of the text'
+app_ua = 'try something new'
 app_scopes = 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modothers modposts modself modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread'
 app_account_code = 'reWp15hGNfrB6YG_NhDyfi8W4RA'
 
