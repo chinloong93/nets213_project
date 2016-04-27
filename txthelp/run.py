@@ -6,7 +6,7 @@ import threading
 import time
 from twilio.rest import TwilioRestClient
 import sys
-from src.reddit_post import *
+#from src.reddit_post import *
 from db.database import *
 from src.reddit_quality_control import *
  
