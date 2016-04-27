@@ -36,6 +36,9 @@ def respond():
             print ' we are trying to log you in'
             reddit = login()
             print 'success', '\t', reddit
+            
+            message = censor_sentence(message)
+
             title = ""
 
             if len(message) > 100:
@@ -43,8 +46,7 @@ def respond():
             else:
                 title = message
 
-            message = censor_sentence(message)
-
+            message = message + "\n Please help this person answer to this message. Write something useful and no swearing please"
             post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
@@ -78,7 +80,6 @@ def handle_request(post_id, time):
     else:
 
         #check quality of comment, if bad don't submit
-        # check if flagged
         number = user_number(post_id)
         response = "Message Response: \n" +comment[0] + "\n \nText again to submit a new message request"
         message = client.messages.create(to=number, from_="+12674600904", body=response)
