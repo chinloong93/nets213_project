@@ -9,6 +9,7 @@ import sys
 from src.reddit_post import *
 from db.database import *
 from src.reddit_quality_control import *
+from src.grammar_control import *
  
 app = Flask(__name__)
 
@@ -36,11 +37,13 @@ def respond():
             reddit = login()
             print 'success', '\t', reddit
             title = ""
-            
+
             if len(message) > 100:
-                title = message[:100]
+                title = message[:100] + "..."
             else:
                 title = message
+
+            message = censor_sentence(message)
 
             post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
@@ -75,7 +78,7 @@ def handle_request(post_id, time):
     else:
 
         #check quality of comment, if bad don't submit
-
+        # check if flagged
         number = user_number(post_id)
         response = "Message Response: \n" +comment[0] + "\n \nText again to submit a new message request"
         message = client.messages.create(to=number, from_="+12674600904", body=response)
