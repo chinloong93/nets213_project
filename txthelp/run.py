@@ -33,10 +33,11 @@ def respond():
                 # possibly add url to reddit
     	else:
             print ' we are trying to log you in'
-            r = login()
+            reddit = login()
             print 'success', '\t', r
             sys.stdout.flush()
-            post_id = post_to_reddit(r, message)
+            post_id = post_to_reddit(reddit, message)
+            print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
             t = threading.Timer(10.0, handle_request, [post_id, str(0)])
