@@ -20,8 +20,8 @@ def login():
     sys.stdout.flush()
     return r
 
-def post_to_reddit(r, message):
-    post = r.submit('txthotline', str(random.randint(0,10000000)), text=message)
+def post_to_reddit(r, message, title):
+    post = r.submit('txthotline', title, text=message)
     return post.id
 
 if __name__ == "__main__":

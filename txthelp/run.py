@@ -29,13 +29,20 @@ def respond():
     	resp.message("Hi. Welcome to the txt-message hotline.\nWhat is the message that you are trying to respond to?")
     else:
     	if (user_active(from_number)):
-                resp.message("Hang tight. We are working on your response")
+                resp.message("Hang tight. We are working on your response.")
                 # possibly add url to reddit
     	else:
             print ' we are trying to log you in'
             reddit = login()
             print 'success', '\t', reddit
-            post_id = post_to_reddit(reddit, message)
+            title = ""
+            
+            if len(message) > 100:
+                title = message[:100]
+            else:
+                title = message
+
+            post_id = post_to_reddit(reddit, message, title)
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
@@ -66,6 +73,9 @@ def handle_request(post_id, time):
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
         deactivate(number)
     else:
+
+        #check quality of comment, if bad don't submit
+
         number = user_number(post_id)
         response = "Message Response: \n" +comment[0] + "\n \nText again to submit a new message request"
         message = client.messages.create(to=number, from_="+12674600904", body=response)
