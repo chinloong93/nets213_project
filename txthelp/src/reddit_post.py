@@ -13,9 +13,9 @@ def login():
     print 'started login'
     r = praw.Reddit(app_ua)
     print 'got r'
-    r.set_oauth_app_info(app_id, 'secret', app_uri)
+    r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
     print 'set oauth app'
-    r.refresh_access_information('secret')
+    r.refresh_access_information('11799219-t3T0HETO75UoWwO3vNmNIYt7YPo')
     print 'successful login','\t',r
     sys.stdout.flush()
     return r

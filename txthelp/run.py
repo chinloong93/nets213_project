@@ -13,8 +13,8 @@ from src.grammar_control import *
  
 app = Flask(__name__)
 
-ACCOUNT_SID = "secret" 
-AUTH_TOKEN = "secret" 
+ACCOUNT_SID = "AC2211707adb4cde52955bca7cfa0db513" 
+AUTH_TOKEN = "4231c1beb1058d77cda8cab30fe95895" 
  
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 
@@ -54,7 +54,7 @@ def respond():
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
-            t = threading.Timer(2400.0, handle_request, [post_id, str(0)])
+            t = threading.Timer(600.0, handle_request, [post_id, str(0)])
             t.start()
             sys.stdout.flush()
 
@@ -70,12 +70,12 @@ def handle_request(post_id, time):
     time = int(time)
     comment = get_most_upvoted_comment(r, post_id)
 
-    if comment is None and time < 60:
-        time += 10
-        t = threading.Timer(10.0, handle_request, [post_id, str(time)])
+    if comment is None and time < 6000:
+        time += 600
+        t = threading.Timer(600.0, handle_request, [post_id, str(time)])
         t.start()
         return None
-    elif comment is None and time >= 60:
+    elif comment is None and time >= 6000:
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
