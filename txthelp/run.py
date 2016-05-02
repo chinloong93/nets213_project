@@ -70,12 +70,12 @@ def handle_request(post_id, time):
     time = int(time)
     comment = get_most_upvoted_comment(r, post_id)
 
-    if comment is None and time < 6000:
+    if comment is None and time < 60:
         time += 600
         t = threading.Timer(600.0, handle_request, [post_id, str(time)])
         t.start()
         return None
-    elif comment is None and time >= 6000:
+    elif comment is None and time >= 60:
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
