@@ -12,7 +12,8 @@
 ## Milestone 3: Check highest quality response (QC Module) *4pts*
 * ~~Allow time to gather response (30 minutes)~~ *Used threads*
 * ~~Choose the top n upvoted response on reddit~~
-* Check for results with valid English grammar and store the results in a database
+* ~~Check for results with valid English grammar and store the results in a database~~
+* Allow message requester to rate response
 
 ## Milestone 4: Response to user *4pts*
 * ~~Pull data from database~~
