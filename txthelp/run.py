@@ -79,14 +79,17 @@ def handle_request(post_id, time):
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
-        deactivate(number)
+        remove_user(number)
     else:
 
         #check quality of comment, if bad don't submit
         number = user_number(post_id)
-        response = "Message Response: \n" +comment[0] + "\n \nText again to submit a new message request"
+        response = comment[0]
         message = client.messages.create(to=number, from_="+12674600904", body=response)
-        deactivate(number)
+        message_rating = client.messages.create(to=number, from_="+12674600904", \
+            body="Rate your response with a number between 1 (awful) and 5 (awesome)")
+        # start new thread to check if they respond
+        # remove_user(number)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -28,6 +28,10 @@ def deactivate(number):
     # Get cursor
     db.users.update( { "user.number": number }, { "user": { "number":number, "active":"" } } )
 
+# Remove user from database
+def remove_user(number):
+    db.users.remove({"user.number": number })
+
 # Checks whether the user has an active post
 def user_active(number):
     cursor = db.users.find( { "user.number": number } )
