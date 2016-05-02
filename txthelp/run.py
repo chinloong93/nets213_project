@@ -71,8 +71,8 @@ def handle_request(post_id, time):
     comment = get_most_upvoted_comment(r, post_id)
 
     if comment is None and time < 60:
-        time += 600
-        t = threading.Timer(600.0, handle_request, [post_id, str(time)])
+        time += 60
+        t = threading.Timer(60.0, handle_request, [post_id, str(time)])
         t.start()
         return None
     elif comment is None and time >= 60:
@@ -85,6 +85,8 @@ def handle_request(post_id, time):
         #check quality of comment, if bad don't submit
         number = user_number(post_id)
         response = comment[0]
+        message_rating = client.messages.create(to=number, from_="+12674600904", \
+            body="This is the response that the crowd has found for you:")
         message = client.messages.create(to=number, from_="+12674600904", body=response)
         message_rating = client.messages.create(to=number, from_="+12674600904", \
             body="Rate your response with a number between 1 (awful) and 5 (awesome)")
