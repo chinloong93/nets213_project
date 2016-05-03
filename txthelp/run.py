@@ -85,13 +85,16 @@ def handle_request(post_id, time):
         #check quality of comment, if bad don't submit
         number = user_number(post_id)
         response = comment[0]
-        message_rating = client.messages.create(to=number, from_="+12674600904", \
+        pre_message = client.messages.create(to=number, from_="+12674600904", \
             body="This is the response that the crowd has found for you:")
         message = client.messages.create(to=number, from_="+12674600904", body=response)
-        message_rating = client.messages.create(to=number, from_="+12674600904", \
-            body="Rate your response with a number between 1 (awful) and 5 (awesome)")
+        #post_message = client.messages.create(to=number, from_="+12674600904", \
+        #    body="Rate your response with a number between 1 (awful) and 5 (awesome)")
         # start new thread to check if they respond
-        # remove_user(number)
+        remove_user(number)
+
+def handle_quality_request(post_id, time):
+
 
 if __name__ == "__main__":
     app.run(debug=True)

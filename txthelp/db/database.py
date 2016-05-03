@@ -54,3 +54,35 @@ def user_number(post_id):
     cursor = db.users.find( { "user.active": post_id } )
     for elt in cursor:
         return elt['user']['number']
+
+# creates user with 0 quality in database
+def create_reddit_user(username):
+    db.qualities.insert({"user": {"username": username, "quality":0.0, "votes": 0.0}})
+
+# check if reddit user exists
+def check_if_reddit_user_exists(username):
+    cursor = db.qualities.find({"user.username": username})
+    for elt in cursor:
+        if elt['user']['username'] == username:
+            return True
+        else:
+            return False
+
+# updates quality of user in db
+def update_quality_reddit_user(username, quality):
+    cursor = db.qualities.find({"user.username": username})
+    votes = 0.0
+    for elt in cursor:
+        votes = elt['user']['votes']
+        quality = quality + elt['user']['quality']*votes
+        votes = votes + 1.0
+        quality = quality/votes
+
+    db.qualities.update(
+        {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
+
+if __name__ == "__main__":
+    if not check_if_reddit_user_exists("elbuenvasco"):
+        create_reddit_user("elbuenvasco")
+    update_quality_reddit_user("elbuenvasco", 4.0)
+
