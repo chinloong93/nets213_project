@@ -81,7 +81,6 @@ def handle_request(post_id, time):
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
         remove_user(number)
     else:
-
         #check quality of comment, if bad don't submit
         number = user_number(post_id)
         response = comment[0]
