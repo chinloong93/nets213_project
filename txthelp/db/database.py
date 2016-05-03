@@ -81,8 +81,8 @@ def update_quality_reddit_user(username, quality):
     db.qualities.update(
         {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
 
-if __name__ == "__main__":
-    if not check_if_reddit_user_exists("elbuenvasco"):
-        create_reddit_user("elbuenvasco")
-    update_quality_reddit_user("elbuenvasco", 4.0)
+# if __name__ == "__main__":
+#     if not check_if_reddit_user_exists("elbuenvasco"):
+#         create_reddit_user("elbuenvasco")
+#     update_quality_reddit_user("elbuenvasco", 4.0)
 
