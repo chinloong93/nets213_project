@@ -27,7 +27,8 @@ def respond():
 
     if (not user_exists(from_number)):
     	add_user(from_number)
-    	resp.message("Hi. Welcome to the txt-message hotline.\nWhat is the message that you are trying to respond to?")
+    	resp.message(
+            "Hi. Welcome to the txt-message hotline.\nWhat is the message that you are trying to respond to?\n(Please send request as one single text)")
     else:
     	if (user_active(from_number)):
                 resp.message("Hang tight. We are working on your response.")
@@ -85,7 +86,7 @@ def handle_request(post_id, time):
         number = user_number(post_id)
         response = comment[0]
         pre_message = client.messages.create(to=number, from_="+12674600904", \
-            body="This is the response that the crowd has found for you:")
+            body="This is the response that the crowd has created for you:")
         message = client.messages.create(to=number, from_="+12674600904", body=response)
         #post_message = client.messages.create(to=number, from_="+12674600904", \
         #    body="Rate your response with a number between 1 (awful) and 5 (awesome)")
