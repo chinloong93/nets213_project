@@ -92,8 +92,7 @@ def handle_request(post_id, time):
         # start new thread to check if they respond
         remove_user(number)
 
-def handle_quality_request(post_id, time):
-
+#def handle_quality_request(post_id, time):
 
 if __name__ == "__main__":
     app.run(debug=True)
