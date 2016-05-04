@@ -42,12 +42,10 @@ def respond():
                     update_quality_reddit_user(reddit_user, quality)
                     print "updated quality " + message
                     remove_user(from_number)
-                    message = client.messages.create(to=number, from_="+12674600904", 
-                        body="Thank you for your response. We're always here to help!")
+                    resp.message("Thank you for your response. We're always here to help!")
                 else:
                     print "vote is not valid"
-                    message = client.messages.create(to=number, from_="+12674600904",
-                        body="Please rate the response. We are trying to improve our service.")
+                    resp.message("Please rate the response. We are trying to improve our service.")
             else:
                 print 'this is not a vote message'
                 resp.message("Hang tight. We are working on your response.")
