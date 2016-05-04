@@ -15,18 +15,18 @@ def user_exists(number):
 
 # Add an inactive user to the database
 def add_user(number):
-    db.users.insert( { "user": {"number":number, "active": "" } } )
+    db.users.insert( { "user": {"number":number, "active": "", "voted":"" } } )
 
 # Activate user by adding a post id to the database
 def activate(number, postId):
     # Get cursor
     db.users.update(
-        { "user.number": number }, { "user": { "number":number, "active":postId } } )
+        { "user.number": number }, { "user": { "number":number, "active":postId, "voted":"" } } )
 
 # Deactivate user by removing a post from the database
 def deactivate(number):
     # Get cursor
-    db.users.update( { "user.number": number }, { "user": { "number":number, "active":"" } } )
+    db.users.update( { "user.number": number }, { "user": { "number":number, "active":"", "voted":"" } } )
 
 # Remove user from database
 def remove_user(number):
@@ -54,6 +54,21 @@ def user_number(post_id):
     cursor = db.users.find( { "user.active": post_id } )
     for elt in cursor:
         return elt['user']['number']
+
+# Change the state of vote for user
+def activate_user_vote(number, reddit_user):
+    db.users.update(
+        { "user.number": number }, { "user": { "number":number, "active":"", "voted":reddit_user } } )
+    
+
+# Check if user has voted
+def user_has_voted(number):
+    cursor = db.users.find({"user.number": number})
+    for elt in cursor:
+        if elt['user']['voted'] != "":
+            return elt['user']['voted']
+        else:
+            return None
 
 # creates user with 0 quality in database
 def create_reddit_user(username):
@@ -96,7 +111,6 @@ def update_quality_reddit_user(username, quality):
         {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
 
 if __name__ == "__main__":
-    print get_quality_reddit_user("elbuenvasco")
-    if (get_quality_reddit_user > 2):
-        print True
+    add_user("+12154601865")
+    print user_has_voted("+12154601865")
 

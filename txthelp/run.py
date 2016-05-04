@@ -31,8 +31,20 @@ def respond():
             "Hi. Welcome to the txt-message hotline.\nWhat is the message that you are trying to respond to?\n(Please send request as one single text)")
     else:
     	if (user_active(from_number)):
-                resp.message("Hang tight. We are working on your response.")
-                # possibly add url to reddit
+                reddit_user = user_has_voted(from_number)
+                if reddit_user != None:
+                    if message.isdigit() and float(message) >= 0 and float(message) <= 5:
+                        if not check_if_reddit_user_exists(reddit_user):
+                            create_reddit_user(reddit_user)
+                        update_quality_reddit_user(reddit_user, quality)
+                        remove_user(from_number)
+                        message = client.messages.create(to=number, from_="+12674600904", \
+                            body="Thank you for your response. We're always here to help!")
+                    else:
+                        message = client.messages.create(to=number, from_="+12674600904", \
+                            body="Please rate the response. We are trying to improve our service.")
+                else:
+                    resp.message("Hang tight. We are working on your response.")
     	else:
             print ' we are trying to log you in'
             reddit = login()
@@ -85,6 +97,7 @@ def handle_request(post_id, time):
     else:
         number = user_number(post_id)
         response = ""
+        author = ""
         for single_comment in comments:
             author = single_comment[2]
             if not check_if_reddit_user_exists(author):
@@ -111,12 +124,9 @@ def handle_request(post_id, time):
             message = client.messages.create(to=number, from_="+12674600904", body=response)
             post_message = client.messages.create(to=number, from_="+12674600904", \
                 body="Rate your response with a number between 1 (awful) and 5 (awesome)")
+            activate_user_vote(number, author)
             # start new thread to check if they respond
             
-
-            # do we need to do this
-            # remove_user(number)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
