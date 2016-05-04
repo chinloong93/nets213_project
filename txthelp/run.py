@@ -55,7 +55,7 @@ def respond():
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
-            t = threading.Timer(60.0, handle_request, [post_id, str(0)])
+            t = threading.Timer(30.0, handle_request, [post_id, str(0)])
             t.start()
             sys.stdout.flush()
 
@@ -72,12 +72,12 @@ def handle_request(post_id, time):
     comment = get_most_upvoted_comment(r, post_id)
     comments = get_comments_in_order(r, post_id)
 
-    if comment is None and time < 120:
-        time += 60
-        t = threading.Timer(600.0, handle_request, [post_id, str(time)])
+    if comment is None and time < 60:
+        time += 30
+        t = threading.Timer(30.0, handle_request, [post_id, str(time)])
         t.start()
         return None
-    elif comment is None and time >= 120:
+    elif comment is None and time >= 60:
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
@@ -97,12 +97,13 @@ def handle_request(post_id, time):
                 response = single_comment[0]
                 break
 
-        if response == "" and time >= 120:
+        if response == "" and time >= 60:
             message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
+            remove_user(number)
         elif response == "":
-            time += 60
-            t = threading.Timer(60.0, handle_request, [post_id, str(time)])
+            time += 30
+            t = threading.Timer(30.0, handle_request, [post_id, str(time)])
             t.start()
         else:
             pre_message = client.messages.create(to=number, from_="+12674600904", \
@@ -111,7 +112,10 @@ def handle_request(post_id, time):
             post_message = client.messages.create(to=number, from_="+12674600904", \
                 body="Rate your response with a number between 1 (awful) and 5 (awesome)")
             # start new thread to check if they respond
-            remove_user(number)
+            
+
+            # do we need to do this
+            # remove_user(number)
 
 
 if __name__ == "__main__":
