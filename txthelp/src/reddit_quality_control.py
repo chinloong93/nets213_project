@@ -9,9 +9,9 @@ app_account_code = 'reWp15hGNfrB6YG_NhDyfi8W4RA'
 
 def login2():
     r = praw.Reddit(app_ua)
-    r.set_oauth_app_info(app_id, 'NQ-k-lhh8leMTOiQwPw-ji12kWE', app_uri)
+    r.set_oauth_app_info(app_id, 'secret', app_uri)
     print 'set oauth app'
-    r.refresh_access_information('11799219-t3T0HETO75UoWwO3vNmNIYt7YPo')
+    r.refresh_access_information('secret')
     return r
 
 def top_posts(r):

@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from datetime import datetime
 #from ..credentials import db_url
 
-client = MongoClient("mongodb://admin:password@ds039000.mlab.com:39000/heroku_d7ctc0xz")
+client = MongoClient("secret")
 db = client.get_default_database()
 
 # Checks whether the user exists in the database
