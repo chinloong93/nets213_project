@@ -41,7 +41,7 @@ def respond():
                     if not check_if_reddit_user_exists(reddit_user):
                         print "creating reddit user"
                         create_reddit_user(reddit_user)
-                    update_quality_reddit_user(reddit_user, quality)
+                    update_quality_reddit_user(reddit_user, float(str(message)))
                     print "updated quality " + message
                     remove_user(from_number)
                     resp.message("Thank you for your response. We're always here to help!")

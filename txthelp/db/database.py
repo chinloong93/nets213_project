@@ -111,5 +111,6 @@ def update_quality_reddit_user(username, quality):
         {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
 
 if __name__ == "__main__":
-    print user_active("+12154602034")
+    print check_if_reddit_user_exists("elbuenvasco")
+    update_quality_reddit_user("elbuenvasco", 4)
 
