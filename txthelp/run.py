@@ -31,26 +31,26 @@ def respond():
             "Hi. Welcome to the txt-message hotline.\nWhat is the message that you are trying to respond to?\n(Please send request as one single text)")
     else:
     	if (user_active(from_number)):
-                print "user is active"
-                reddit_user = user_has_voted(from_number)
-                print reddit_user
-                if reddit_user != None:
-                    if message.isdigit() and float(message) >= 0.0 and float(message) <= 5.0:
-                        if not check_if_reddit_user_exists(reddit_user):
-                            print "creating reddit user"
-                            create_reddit_user(reddit_user)
-                        update_quality_reddit_user(reddit_user, quality)
-                        print "updated quality " + message
-                        remove_user(from_number)
-                        message = client.messages.create(to=number, from_="+12674600904", \
-                            body="Thank you for your response. We're always here to help!")
-                    else:
-                        print "vote is not valid"
-                        message = client.messages.create(to=number, from_="+12674600904", \
-                            body="Please rate the response. We are trying to improve our service.")
+            print "user is active"
+            reddit_user = user_has_voted(from_number)
+            print reddit_user
+            if reddit_user != None:
+                if message.isdigit() and float(message) >= 0.0 and float(message) <= 5.0:
+                    if not check_if_reddit_user_exists(reddit_user):
+                        print "creating reddit user"
+                        create_reddit_user(reddit_user)
+                    update_quality_reddit_user(reddit_user, quality)
+                    print "updated quality " + message
+                    remove_user(from_number)
+                    message = client.messages.create(to=number, from_="+12674600904", \
+                        body="Thank you for your response. We're always here to help!")
                 else:
-                    print 'this is not a vote message'
-                    resp.message("Hang tight. We are working on your response.")
+                    print "vote is not valid"
+                    message = client.messages.create(to=number, from_="+12674600904", \
+                        body="Please rate the response. We are trying to improve our service.")
+            else:
+                print 'this is not a vote message'
+                resp.message("Hang tight. We are working on your response.")
             sys.stdout.flush()
 
     	else:
