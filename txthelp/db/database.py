@@ -68,6 +68,20 @@ def check_if_reddit_user_exists(username):
         else:
             return False
 
+# check if reddit user has been graded yet
+def check_if_reddit_user_has_votes(username):
+    cursor = db.qualities.find({"user.username": username})
+    for elt in cursor:
+        if elt['user']['votes'] == 0.0:
+            return False
+        else:
+            return True
+
+def get_quality_reddit_user(username):
+    cursor = db.qualities.find({"user.username": username})
+    for elt in cursor:
+        return elt['user']['quality']
+
 # updates quality of user in db
 def update_quality_reddit_user(username, quality):
     cursor = db.qualities.find({"user.username": username})
@@ -81,8 +95,8 @@ def update_quality_reddit_user(username, quality):
     db.qualities.update(
         {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
 
-# if __name__ == "__main__":
-#     if not check_if_reddit_user_exists("elbuenvasco"):
-#         create_reddit_user("elbuenvasco")
-#     update_quality_reddit_user("elbuenvasco", 4.0)
+if __name__ == "__main__":
+    print get_quality_reddit_user("elbuenvasco")
+    if (get_quality_reddit_user > 2):
+        print True
 

@@ -55,7 +55,7 @@ def respond():
             print 'post_id', '\t', post_id
             activate(from_number, post_id)
             resp.message("Your request has been submitted! We will text you back when your response is ready.")
-            t = threading.Timer(1800.0, handle_request, [post_id, str(0)])
+            t = threading.Timer(60.0, handle_request, [post_id, str(0)])
             t.start()
             sys.stdout.flush()
 
@@ -70,30 +70,49 @@ def handle_request(post_id, time):
     r = login()
     time = int(time)
     comment = get_most_upvoted_comment(r, post_id)
+    comments = get_comments_in_order(r, post_id)
 
-    if comment is None and time < 7200:
-        time += 600
+    if comment is None and time < 120:
+        time += 60
         t = threading.Timer(600.0, handle_request, [post_id, str(time)])
         t.start()
         return None
-    elif comment is None and time >= 7200:
+    elif comment is None and time >= 120:
         number = user_number(post_id)
         message = client.messages.create(to=number, from_="+12674600904", \
             body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
         remove_user(number)
     else:
-        #check quality of comment, if bad don't submit
         number = user_number(post_id)
-        response = comment[0]
-        pre_message = client.messages.create(to=number, from_="+12674600904", \
-            body="This is the response that the crowd has created for you:")
-        message = client.messages.create(to=number, from_="+12674600904", body=response)
-        #post_message = client.messages.create(to=number, from_="+12674600904", \
-        #    body="Rate your response with a number between 1 (awful) and 5 (awesome)")
-        # start new thread to check if they respond
-        remove_user(number)
+        response = ""
+        for single_comment in comments:
+            author = single_comment[2]
+            if not check_if_reddit_user_exists(author):
+                create_reddit_user(author)
+            if not check_if_reddit_user_has_votes(author):
+                response = single_comment[0]
+                break
+            quality = get_quality_reddit_user(author)
+            if quality >= 3.0:
+                response = single_comment[0]
+                break
 
-#def handle_quality_request(post_id, time):
+        if response == "" and time >= 120:
+            message = client.messages.create(to=number, from_="+12674600904", \
+            body="We were not able to get a response for you.\nWe have cancelled your request due to lack of responses. Text again to submit a new message request")
+        elif response == "":
+            time += 60
+            t = threading.Timer(60.0, handle_request, [post_id, str(time)])
+            t.start()
+        else:
+            pre_message = client.messages.create(to=number, from_="+12674600904", \
+                body="This is the response that the crowd has created for you:")
+            message = client.messages.create(to=number, from_="+12674600904", body=response)
+            post_message = client.messages.create(to=number, from_="+12674600904", \
+                body="Rate your response with a number between 1 (awful) and 5 (awesome)")
+            # start new thread to check if they respond
+            remove_user(number)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
