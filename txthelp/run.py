@@ -37,6 +37,7 @@ def respond():
             if reddit_user != None:
                 print message
                 if str(message).isdigit() and float(str(message)) >= 0.0 and float(str(message)) <= 5.0:
+                    print "Message is a number"
                     if not check_if_reddit_user_exists(reddit_user):
                         print "creating reddit user"
                         create_reddit_user(reddit_user)
