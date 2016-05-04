@@ -58,7 +58,7 @@ def user_number(post_id):
 # Change the state of vote for user
 def activate_user_vote(number, reddit_user):
     db.users.update(
-        { "user.number": number }, { "user": { "number":number, "active":"", "voted":reddit_user } } )
+        { "user.number": number }, { "user": { "number":number, "active":"active", "voted":reddit_user } } )
     
 
 # Check if user has voted
@@ -111,6 +111,5 @@ def update_quality_reddit_user(username, quality):
         {"user.username": username}, {"user": {"username": username, "quality": quality, "votes": votes }})
 
 if __name__ == "__main__":
-    add_user("+12154601865")
-    print user_has_voted("+12154601865")
+    print user_active("+12154602034")
 
